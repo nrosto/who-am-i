@@ -23,7 +23,9 @@ export default function HomePage() {
 
   useEffect(() => {
     socket.on("connect", () => {
-      setMySocketId(socket.id);
+      if (socket.id) {
+        setMySocketId(socket.id);
+      }
     });
 
     socket.on("lobby_created", ({ lobbyId }) => {
@@ -99,7 +101,7 @@ export default function HomePage() {
     socket.emit("restart_game", { lobbyId: currentLobby });
   }
 
-  const myTargetId = assignments[socket.id];
+  const myTargetId = mySocketId ? assignments[mySocketId] : undefined;
   const myTarget = players.find(p => p.id === myTargetId);
 
   return (
