@@ -9,6 +9,7 @@ type Player = {
 };
 
 export default function HomePage() {
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const [nickname, setNickname] = useState("");
   const [lobbyId, setLobbyId] = useState("");
   const [players, setPlayers] = useState<Player[]>([]);
@@ -20,6 +21,15 @@ export default function HomePage() {
   const [words, setWords] = useState<Record<string, string | null>>({});
   const [note, setNote] = useState("");
 
+  useEffect(() => {
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme === "dark" || savedTheme === "light") {
+      setTheme(savedTheme);
+      document.body.className = savedTheme;
+    } else {
+      document.body.className = "light";
+    }
+  }, []);
 
   useEffect(() => {
     socket.on("connect", () => {
@@ -69,6 +79,12 @@ export default function HomePage() {
     }
   }, [currentLobby]);
 
+  function toggleTheme() {
+    const nextTheme = theme === "light" ? "dark" : "light";
+    setTheme(nextTheme);
+    document.body.className = nextTheme;
+    localStorage.setItem("theme", nextTheme);
+  }
 
   function createLobby() {
     if (!nickname) return alert("Введите ник");
@@ -106,7 +122,13 @@ export default function HomePage() {
 
   return (
     <main style={{ padding: 40 }}>
-      <h1>Игра «Кто я?»</h1>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+        <h1>Игра «Кто я?»</h1>
+
+        <button onClick={toggleTheme}>
+          {theme === "light" ? "🌙 Тёмная тема" : "☀️ Светлая тема"}
+        </button>
+      </div>
 
       {!currentLobby && (
         <>

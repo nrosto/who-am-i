@@ -71,3 +71,48 @@ input, textarea {
   border: none;
   border-radius: 6px;
 }
+
+/* ===== ТЁМНАЯ ТЕМА ===== */
+
+body.dark {
+  background: #121212;
+  color: #eaeaea;
+}
+
+body.dark .block {
+  background: #1e1e1e;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.6);
+}
+
+body.dark .player-card {
+  background: #2a2a2a;
+  border: 1px solid #444;
+}
+
+body.dark input,
+body.dark textarea {
+  background: #1c1c1c;
+  color: #eaeaea;
+  border: 1px solid #444;
+}
+
+body.dark input::placeholder,
+body.dark textarea::placeholder {
+  color: #888;
+}
+
+body.dark .word-hidden {
+  color: #777;
+}
+
+body.dark button {
+  border: none;
+}
+
+body.dark .primary {
+  background: #43a047;
+}
+
+body.dark .secondary {
+  background: #1976d2;
+}
